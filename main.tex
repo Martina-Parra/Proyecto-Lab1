@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[sc]{mathpazo} 
+\linespread{1.05}
+\usepackage{microtype}
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption}
+\usepackage{lettrine}
+\usepackage{graphicx}
+\usepackage[hmarginratio=1:1,top=20mm,bottom=35mm,right=15mm,left=15mm,columnsep=20pt]{geometry}
+\usepackage{multicol} 
+\usepackage{booktabs}
+\usepackage{float} 
+\usepackage{subfigure}
+\usepackage{paralist} 
+\usepackage{hyperref} 
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
+\usepackage{titlesec}
+\renewcommand\thesection{\Roman{section}} 
+\renewcommand\thesubsection{\Roman{subsection}} 
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} 
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{}
+
+\usepackage{fancyhdr} 
+
+
+
+\fancyfoot[RO,LE]{\thepage} \newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+
+
+\title{\vspace{-18mm}\fontsize{18pt}{20pt}\selectfont\textbf{Intensidad del campo magnético de un imán de neodímio a distintas temperaturas}} 
+
+
+\author{
+\large
+\textsc{Noemí de la peña, Benjamín Opazo, Martina Contreras, Jeremías Martínez}\\[2mm]
+\large Estudiantes de Cs. Físicas, Universidad de Concepción. 
+%\vspace{2mm}
+}
+\date{}
+
+
+
+
+\begin{document}
+
+\pagestyle{fancy}
+\lhead[]{Laboratorio I}
+\chead[]{}
+\rhead[]{Experimento}
+
+\maketitle
+\headrule
+
+\input{Partes_del_informe/00_abstrac.tex}
+
+
+
+\begin{multicols}{2}
+\input{Partes_del_informe/01_introduccion.tex}
+\input{Partes_del_informe/02_marco_teorico.tex}
+\input{Partes_del_informe/03_Procedimiento.tex}
+\input{Partes_del_informe/04_materiales.tex}
+\input{Partes_del_informe/05_analisis.tex}
+\end{multicols}
+
+
+\input{Partes_del_informe/06_bibliografia.tex}
+
+\end{document}
