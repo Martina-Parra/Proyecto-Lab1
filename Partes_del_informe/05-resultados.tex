@@ -1,0 +1,45 @@
+\section{Resultados}
+Para la captura de datos la herramienta phyphox registró la intensidad del campo magnético que emanaba del imán de neodimio inmediatamente después de ser extraído de la fuente de calor, en sí la aplicación arroja un gráfico de la variación del campo magnético del elemento en el tiempo, sin embargo, nuestro interés aborda valores específicos de su intensidad, por ello solo se considera el valor del campo a un tiempo de 5 segundos.\\
+Como para cada temperatura teníamos más de 1000 valores de campo magnético, tomamos como dato su promedio y su error la desviación estándar de los datos.\\
+Como los 10 valores de temperatura se midieron con una termocupla de sensibilidad $0.1 [^\circ C]$, el error para cada temperatura es de $0.05 [^\circ C]$.\\
+Luego se ajustaron los valores de campo magnético con respecto a su error dado con una cifra significativa y los valores de temperatura con respecto a su error con una cifra significativa.\\
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Temperatura [$^\circ C$] & Intensidad de campo Magnético [$\upmu T$]\\
+        \hline
+        $5.30 \pm 0.05$    &  $ 1713.9 \pm 0.7$ \\
+        \hline
+        $13.30 \pm 0.05$  &   $1669 \pm 4$ \\
+        \hline
+        $26.60 \pm 0.05$  &   $1487.2 \pm 0.7$\\
+        \hline
+        $36.70 \pm 0.05 $ &   $1366 \pm 1$\\
+        \hline
+        $46.50  \pm 0.05$ &   $1306 \pm 2$\\
+        \hline
+        $55.30 \pm 0.05 $ &   $1237 \pm 2$\\
+        \hline
+        $63.30  \pm 0.05$ &   $1212 \pm 2$\\
+        \hline
+        $79.10  \pm 0.05$ &   $833  \pm 3$\\
+        \hline
+        $89.20  \pm 0.05$ &   $779 \pm 1$\\
+        \hline
+        $100.00 \pm 0.05$ &   $711  \pm 1 $\\
+        \hline
+
+    \end{tabular}
+    \caption{Intensidad de campo magnético a distintas temperaturas}
+    \label{datos-tabla}
+\end{table}
+de los valores se deduce que a medida que la temperatura del imán aumenta, su campo magnético decrece, sin embargo no es posible indicar su grado de decaimiento, luego, al graficar estos datos se obtiene la imagen (\ref{Grafica de los datos,sin ajuste}) 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=9cm]{imagenes/grafico-campo-tem.pdf}
+    \caption{Gráfica intensidad de campo magnético vs Temperatura}
+    \label{Grafica de los datos,sin ajuste}
+\end{figure}
