@@ -1,0 +1,154 @@
+\section{Análisis}
+Utilizando los datos de la tabla (\ref{datos-tabla}), ajustaremos los datos por el método de mínimos cuadrados ponderado, ya que el error en el eje $y$ (intensidad de campo) fue calculado con la desviación estándar de un registro de datos, por lo que, el error de los puntos del campo es distinto para cada uno.    
+
+
+Para trabajar con la información recopilada, usaremos las herramientas programáticas dentro de \textit{python}, en especial los módulos de \textit{Matplotlib.pyplot}, \textit{Numpy} y \textit{scipy}, en especifico, el ajuste que atraviese los datos lo determinaremos con el módulo \textit{optimize} que contiene la función \textit{Curve\_fit} capaz de obtener coeficientes en un arreglo matemático específico.
+
+Como primera observación, se puede deducir que los datos parecen representar un decrecimiento exponencial, así que para comenzar, utilizamos el siguiente ajuste $B_0(T)=A\cdot e^{-U\cdot T}$, en donde A y U son coeficientes por determinar,  .
+
+Como observación pertinente al modelo exponencial, se debe afirmar que es un modelo correcto para temperaturas que estén entre 0[°C] y 100[°C], no es aplicable este modelo fuera de ese intervalo de temperaturas, puesto que los registros hechos no contienen una mensuración del campo para temperaturas muy bajas (inferiores a 0) ni tampoco es posible deducir el ajuste que se hará para valores muy grandes.
+Esto ya que en el caso de la exponencial que modela el ajuste, las matemáticas sugieren que al imán de neodimio se le deba suministrar una temperatura infinita para que recién el imán pierda su capacidad magnética ($B=0$) lo que es absurdo puesto que transgrede la definición de la temperatura de Curie \cite{ref4} que sabemos que para un material ferromagnético, en específico, para los imanes de neodimio, su capacidad magnética desaparece a temperaturas $T_c\in [310,400] (^\circ C)$ \cite{ref5}.
+
+
+Determinaremos el ajuste de  mínimos cuadrados ponderados, esto ya que los valores de la intensidad del campo medido tienen cada uno un error individual, haciendo necesario añadir un parámetro que establezca el peso del error de cada dato, para ello aplicamos \textit{Curve\_fit} por su definición, obteniendo los valores óptimos para cuando se desea ajustar el arreglo exponencial (\ref{Ajuste_exponencial})
+
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      coeficientes      & Valores \\
+      \hline
+      A       &   1875.8 $\pm$ 0.7 $[\mu T]$\\
+      \hline
+      U  & 0.008844 $\pm$ 0.000009 $[1/^\circ C]$\\  
+      \hline
+    
+    \end{tabular}
+    \caption{Coeficientes para ajuste $B(T)=A \cdot e^{-U \cdot T} $}
+    \label{}
+\end{table}
+
+Al otorgar dichos coeficientes a la función, se aprecia que nuestra curva cruza por los datos de forma certera, tal cual se muestra en (\ref{Ajuste_exponencial}).
+
+
+
+
+\begin{figure}
+    \centering 
+    \includegraphics[width=15cm]{imagenes/Ajuste_exponencial.pdf}
+    \caption{Ajuste de curva para el caso de $B_0(T)=A \cdot e^{-U \cdot T} $}
+    \label{Ajuste_exponencial}
+\end{figure}
+
+Notar que este ajuste exponencial tiene sentido físico si su análisis dimensional es correcto, es decir, sabemos que el campo magnético cumple que $[B]=[\mu T]$  por lo que si ajustamos los parámetros que obtuvimos con magnitudes del sistema internacional, se debería cumplir que  $[U]=[1/{^\circ C}]$ y $[A]=[\mu T]$.
+
+
+
+
+
+%\begin{align}\label{ecuacion exponencial}
+%    B(T)=A \cdot e^{-U \cdot T}   ,\\
+%    
+%\end{align}
+
+
+
+
+Por otro lado, otro posible ajuste que represente la situación, es considerar una recta, de la forma $B_1(T)=AT+B$, esto claramente es un ajuste adecuado por la misma razón que se ha ajustado una exponencial (valores decrecientes paulatinamente).
+
+En cuanto a la recta, también presentaría inconsistencias para datos de campo menores a $0 [^\circ C]$ y mayores a $100 [^\circ C]$, el ajuste supondría un incremento muy grande de intensidad magnética cuando las temperaturas son muy inferiores a $0[^\circ C]$ lo que no tiene tanto sentido ya que su capacidad magnética esta limitada al tamaño del imán (a la cantidad de momentos magnéticos internos).
+
+
+Aplicando nuevamente la herramienta de optimización \emph{polyfit} del  módulo \emph{numpy} a  la  nueva  función junto con los datos, aplicamos el método de mínimos cuadrados ponderado, ya que los errores en el eje Y (campo) son variables, de estos se obtienen los siguientes valores de los coeficientes, que además se encuentran ajustados con sus respectivos errores.
+
+Ajustamos la curva con los siguientes parámetros
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      coeficientes      & Valores \\
+      \hline
+      A       &   -11.1 $\pm$ 0.6 $[\mu T/^\circ C]$\\
+      \hline
+      U  & 1801.51 $\pm $ 0.01 $[\mu T]$\\
+      \hline
+    
+    \end{tabular}
+    \caption{Coeficientes para ajuste $B_1(T)=AT+U $}
+    \label{param-recta}
+\end{table}
+este ajuste de los datos se aprecian en la figura (\ref{Ajuste-recta}).
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=7cm]{imagenes/Ajuste_recta.pdf}
+    \caption{Ajuste de curva para el caso de $B_1(T)=A T+U $}
+    \label{Ajuste-recta}
+\end{figure}
+
+
+Notar que esta igualdad tiene sentido físico si su análisis dimensional es correcto, es decir, sabemos que el campo magnético cumple que $[B]=[\mu T]$  por lo que si ajustamos los parámetros que obtuvimos con magnitudes del sistema internacional, se debería cumplir que  $[U]=[\mu T]$ y $[A]=[\mu T/^\circ C]$.
+
+En este punto, tenemos dos posibles ajustes que modelan este fenómeno, sin embargo, a pesar de que ambos pueden otorgar valores muy cercanos a la realidad, debe ocurrir que uno sea más preciso que el otro, entonces para decidir cuál es el ajuste más óptimo, procederemos a verificar que las curvas que se ajustaron hayan sido una buen elección haciendo un análisis de los residuos, usando la ecuación $\epsilon_i= y_i - f(x_i)/\Delta y_i$ , que determina la distancia que hay de los datos al ajuste realizado, con $\Delta y_i$ el error de cada dato de campo magnético $y_i$, para cada valor se obtienen los siguientes arreglos en cada ajuste hecho.\\
+
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+      Coeficiente de determinación &   Recta & Exponencial \\
+         \hline
+          $R^2$ & 0.97& 0.95 \\
+          \hline
+    \end{tabular}
+    \caption{Coeficiente de determinación de los ajustes}
+    \label{tabla de residuos}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------------------------------
+%Graficos de residuos exponencial
+%---------------------------------------------------------------
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=7cm]{imagenes/Residuos_exponencial_normalizado.pdf}
+    \caption{Gráfica de los residuos normalizados de la exponencial $B_0 (T)$}
+    \label{Residuos-exponencial}
+\end{figure}
+
+%Al graficar los datos vs los residuos (\ref{Residuos-exponencial}) podemos ver que estos no siguen una tendencia clara, considerando que poseíamos pocos datos , por lo que podemos decir que hicimos un buen ajuste.\\  
+
+
+%----------------------------------------------------------------
+%Graficos de residuos recta
+%---------------------------------------------------------------
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=7cm]{imagenes/Residuos_recta_normalizados.pdf}
+    \caption{Gráfica de los residuos normalizados para la recta $B_1(T)$}
+    \label{Residuos_recta}
+\end{figure}
+
+Del gráfico de los residuos para cada función se deduce que ambos ajustes son efectivos, ya que los coeficientes de determinación, tanto para la exponencial como la recta son valores cercanos a $R^2=1$, sin embargo, al comparar ambos ajustes, claramente la recta posee una acomodación más cercana a los datos, siendo un ajuste más preciso, que a simple vista se puede apreciar en la distribución más aleatoria de los puntos en el gráfico de los residuos de la recta (\ref{Residuos_recta}) en comparación a los puntos de los residuos de la exponencial (\ref{Residuos-exponencial}) .
+
+
+
+
+
+
+
+
+
